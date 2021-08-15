@@ -1,0 +1,12 @@
+.DS_Store
+*/.idea/*
+.idea/*
+.idea
+.env
+__pycache__/
+*.pyc
+*.db
+*.egg-info
+*.sqlite3
+*.db
+.vscode

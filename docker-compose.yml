@@ -1,0 +1,40 @@
+version: "3"
+
+services:
+  db:
+    image: postgres:11
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    expose:
+      - "5433"
+    ports:
+      - "5433:5433"
+    environment:
+      - DB_PORT=5433
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=postgres
+      - DB_HOST=db
+    command: -p 5433
+    restart: on-failure
+
+  web:
+    build: .
+    volumes:
+      - .:/code
+    ports:
+      - "9346:9346"
+    depends_on:
+      - db
+    environment:
+      - MAIL_USERNAME=test@gmail.com
+      - MAIL_PASSWORD=test@12345
+      - MAIL_FROM=test@gmail.com
+      - MAIL_PORT=1025
+      - MAIL_SERVER=smtp-server
+      - PROTOCOL=http
+      - DOMAIN=127.0.0.1:9346
+    restart: on-failure
+  
+volumes:
+  postgres_data:
